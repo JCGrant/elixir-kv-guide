@@ -8,8 +8,8 @@ defmodule KVServer.Application do
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
 
-    port = String.to_integer(System.get_env("PORT") ||
-             raise "missing $PORT environment variable")
+    port = Application.fetch_env!(:kv_server, :port) ||
+             raise "add :port to config.exs"
 
     # Define workers and child supervisors to be supervised
     children = [
